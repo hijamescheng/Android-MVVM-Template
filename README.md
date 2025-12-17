@@ -1,4 +1,4 @@
-# MVVM
+# Android MVVM + Clean Architecture template
 
 This is a template Android project build with MVVM + Clean Architecture pattern.
 
