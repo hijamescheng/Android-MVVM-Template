@@ -13,20 +13,22 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(): ViewModel() {
+class MainViewModel
+    @Inject
+    constructor() : ViewModel() {
+        private val _uistate = MutableStateFlow<Int>(0)
+        val uistate =
+            _uistate.map {
+                Repository.fetchNumber()
+            }.flowOn(Dispatchers.IO).stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.Companion.WhileSubscribed(5_000),
+                initialValue = 0,
+            )
 
-    private val _uistate = MutableStateFlow<Int>(0)
-    val uistate = _uistate.map {
-        Repository.fetchNumber()
-    }.flowOn(Dispatchers.IO).stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.Companion.WhileSubscribed(5_000),
-        initialValue = 0
-    )
-
-    fun loadNumber() {
-        viewModelScope.launch {
-            _uistate.emit((1..100).random())
+        fun loadNumber() {
+            viewModelScope.launch {
+                _uistate.emit((1..100).random())
+            }
         }
     }
-}

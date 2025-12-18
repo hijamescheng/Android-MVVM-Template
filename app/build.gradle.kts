@@ -4,11 +4,13 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.ktlint)
 }
 
 android {
     namespace = "com.example.mvvm"
     compileSdk = 36
+    flavorDimensions += "env"
 
     defaultConfig {
         applicationId = "com.example.mvvm"
@@ -20,13 +22,32 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    productFlavors {
+        create("prod") {
+            dimension = "env"
+        }
+
+        create("dev") {
+            dimension = "env"
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
+        }
+    }
+
     buildTypes {
+        debug {
+            isDebuggable = true
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
+            buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/account\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
+            buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/account\"")
         }
     }
     compileOptions {
@@ -38,10 +59,33 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
+    }
+
+    ktlint {
+        version.set("1.2.1") // ktlint CLI
+        android.set(true)
+
+        outputToConsole.set(true)
+        coloredOutput.set(true)
+        ignoreFailures.set(false)
+
+        filter {
+            exclude("**/build/**")
+            exclude("**/generated/**")
+        }
     }
 }
 
 dependencies {
+    implementation(libs.moshi)
+    implementation(libs.moshiKotlin)
+    implementation(libs.retrofit)
+    implementation(libs.retrofitMoshi)
+
+    implementation(libs.okhttp)
+    implementation(libs.okhttpLogging)
+
     implementation(libs.hilt.android)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -51,6 +95,12 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.roomDB)
+    implementation(libs.roomKTX)
+    testImplementation(libs.roomTest)
+
+    ksp(libs.roomCompiler)
+    annotationProcessor(libs.roomCompiler)
     ksp(libs.hilt.compiler)
 
     testImplementation(libs.junit)
