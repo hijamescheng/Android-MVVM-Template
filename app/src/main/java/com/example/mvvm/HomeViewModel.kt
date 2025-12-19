@@ -2,33 +2,43 @@ package com.example.mvvm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mvvm.data.MovieRepository
+import com.example.mvvm.data.Row
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeModel
-@Inject
-constructor() : ViewModel() {
-    private val _uistate = MutableStateFlow<Int>(0)
-    val uistate =
-        _uistate.map {
-            Repository.fetchNumber()
-        }.flowOn(Dispatchers.IO).stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Companion.WhileSubscribed(5_000),
-            initialValue = 0,
-        )
+class HomeViewModel
+    @Inject
+    constructor(
+        val repository: MovieRepository,
+    ) : ViewModel() {
+        val homeState: StateFlow<HomeScreenState> =
+            repository.observeHomePage().map { result ->
+                when {
+                    result.isSuccess && result.getOrNull() != null -> HomeScreenState.SuccessState(result.getOrNull()!!)
+                    result.isFailure -> HomeScreenState.ErrorState
+                    else -> HomeScreenState.EmptyState
+                }
+            }.stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000),
+                initialValue = HomeScreenState.LoadingState,
+            )
 
-    fun loadNumber() {
-        viewModelScope.launch {
-            _uistate.emit((1..100).random())
+        sealed class HomeScreenState {
+            object LoadingState : HomeScreenState()
+
+            object EmptyState : HomeScreenState()
+
+            object ErrorState : HomeScreenState()
+
+            class SuccessState(
+                val homeList: List<Row>,
+            ) : HomeScreenState()
         }
     }
-}
