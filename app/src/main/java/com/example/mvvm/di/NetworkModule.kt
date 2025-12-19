@@ -38,6 +38,7 @@ object NetworkModule {
                         }
                 },
             )
+            .addInterceptor(AuthInterceptor("// TODO add auth token"))
             .build()
 
     @Provides

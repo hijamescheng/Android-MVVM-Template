@@ -1,6 +1,8 @@
 package com.example.mvvm.data.retrofit
 
-data class MovieDto(
+import com.example.mvvm.data.RowTitle
+
+data class TitleDto(
     val adult: Boolean,
     val backdrop_path: String,
     val genre_ids: List<Int>,
@@ -17,3 +19,11 @@ data class MovieDto(
     val vote_count: Int,
     val rating: Int,
 )
+
+fun TitleDto.toRowTitle(): RowTitle {
+    return RowTitle(
+        id = id,
+        title = title,
+        imageUrl = poster_path,
+    )
+}

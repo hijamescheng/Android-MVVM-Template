@@ -4,8 +4,29 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface TMDBService {
-    @GET("https://api.themoviedb.org/3/account/{account_id}/rated/movies")
-    fun getRatedMovies(
+    @RequiresAuth
+    @GET("/account/{account_id}/watchlist/movies")
+    fun getWatchListMovies(
         @Path("account_id") accountId: Int,
-    ): List<MovieDto>
+    ): List<TitleDto>
+
+    @RequiresAuth
+    @GET("/discover/movie")
+    fun getDiscoverMovies(): List<TitleDto>
+
+    @RequiresAuth
+    @GET("/discover/tv")
+    fun getDiscoverTvShows(): List<TitleDto>
+
+    @RequiresAuth
+    @GET("/movie/now_playing")
+    fun getNowPlayingMovies(): List<TitleDto>
+
+    @RequiresAuth
+    @GET("/movie/popular")
+    fun getPopularMovies(): List<TitleDto>
+
+    @RequiresAuth
+    @GET("/movie/upcoming")
+    fun getUpcomingMovies(): List<TitleDto>
 }

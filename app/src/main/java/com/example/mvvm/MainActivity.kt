@@ -20,7 +20,7 @@ import kotlin.getValue
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    val viewModel: MainViewModel by viewModels()
+    val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,18 +28,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             MVVMTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val uistate = viewModel.uistate.collectAsStateWithLifecycle()
+                    val uistate = viewModel.homeState.collectAsStateWithLifecycle()
                     Column(modifier = Modifier.padding(top = innerPadding.calculateTopPadding())) {
                         Text(text = uistate.value.toString())
                     }
                 }
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.loadNumber()
     }
 }
 

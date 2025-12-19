@@ -1,10 +1,10 @@
 package com.example.mvvm.data
 
-import com.example.mvvm.data.room.MovieEntity
 import com.example.mvvm.data.room.ScreenResponseEntity
+import kotlinx.coroutines.flow.Flow
 
 interface LocalMovieDataSource {
-    suspend fun getMovies(): List<MovieEntity>
+    fun getScreenResponse(screenName: String): Flow<String?>
 
-    suspend fun getScreenResponse(screenName: String): ScreenResponseEntity?
+    fun upsertScreenResponse(entity: ScreenResponseEntity)
 }

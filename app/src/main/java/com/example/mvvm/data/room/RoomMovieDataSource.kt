@@ -1,6 +1,7 @@
 package com.example.mvvm.data.room
 
 import com.example.mvvm.data.LocalMovieDataSource
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class RoomMovieDataSource
@@ -8,8 +9,10 @@ class RoomMovieDataSource
     constructor(
         val db: MovieRoomDatabase,
     ) : LocalMovieDataSource {
-        override suspend fun getMovies(): List<MovieEntity> = db.movieDao().getAll()
-
-        override suspend fun getScreenResponse(screenName: String): ScreenResponseEntity? =
+        override fun getScreenResponse(screenName: String): Flow<String?> =
             db.screenResponseDao().getScreenResponseByName(screenName)
+
+        override fun upsertScreenResponse(entity: ScreenResponseEntity) {
+            db.screenResponseDao().upsert(entity)
+        }
     }
