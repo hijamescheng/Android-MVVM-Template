@@ -38,7 +38,7 @@ object NetworkModule {
                         }
                 },
             )
-            .addInterceptor(AuthInterceptor("// TODO add auth token"))
+            .addInterceptor(AuthInterceptor(BuildConfig.API_TOKEN))
             .build()
 
     @Provides
@@ -56,4 +56,8 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideTMDBService(retrofit: Retrofit): TMDBService = retrofit.create(TMDBService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideAccountId(): Int = 22567588
 }

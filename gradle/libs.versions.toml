@@ -15,6 +15,7 @@ okhttp = "5.3.0"
 room = "2.8.4"
 moshiVersion = "1.15.2"
 ktlint = "14.0.1"
+coil = "3.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -46,6 +47,9 @@ roomTest = { group = "androidx.room", name = "room-testing", version.ref = "room
 
 moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "moshiVersion" }
 moshiKotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshiVersion" }
+
+coil = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
+coilNetwork = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

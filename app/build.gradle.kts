@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -34,12 +36,24 @@ android {
         }
     }
 
+    val localProperties =
+        Properties().apply {
+            val file = rootProject.file("local.properties")
+            if (file.exists()) {
+                load(file.inputStream())
+            }
+        }
+
+    val token: String = localProperties.getProperty("auth_token") ?: ""
+
     buildTypes {
         debug {
             isDebuggable = true
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
             buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String", "POSTER_URL", "\"https://image.tmdb.org/t/p/w200\"")
+            buildConfigField("String", "API_TOKEN", "\"$token\"")
         }
         release {
             isMinifyEnabled = false
@@ -48,6 +62,8 @@ android {
                 "proguard-rules.pro",
             )
             buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String", "POSTER_URL", "\"https://image.tmdb.org/t/p/w200\"")
+            buildConfigField("String", "API_TOKEN", "\"$token\"")
         }
     }
     compileOptions {
@@ -86,7 +102,8 @@ dependencies {
 
     implementation(libs.okhttp)
     implementation(libs.okhttpLogging)
-
+    implementation(libs.coil)
+    implementation(libs.coilNetwork)
     implementation(libs.hilt.android)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

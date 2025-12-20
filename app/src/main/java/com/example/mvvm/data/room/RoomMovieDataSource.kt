@@ -3,7 +3,9 @@ package com.example.mvvm.data.room
 import com.example.mvvm.data.LocalMovieDataSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class RoomMovieDataSource
     @Inject
     constructor(

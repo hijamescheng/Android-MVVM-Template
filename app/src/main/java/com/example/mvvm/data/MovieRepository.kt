@@ -7,7 +7,6 @@ import jakarta.inject.Named
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -45,6 +44,9 @@ class MovieRepository
                             updatedAt = System.currentTimeMillis(),
                         ),
                     )
+                }.onFailure {
+                    // Fail silently
+                    println(it.message)
                 }
             }
         }
@@ -53,8 +55,10 @@ class MovieRepository
             // treat local storage as single source of truth
             // 1. query cached home screen response
             // 2. start a async request to fetch and cache from remote api
-            return localDataSource.getScreenResponse(HOME_SCREEN).filterNotNull().map {
-                Result.success(adapter.fromJson(it).orEmpty())
+            return localDataSource.getScreenResponse(HOME_SCREEN).map { queryResult ->
+                queryResult?.let {
+                    Result.success(adapter.fromJson(it).orEmpty())
+                } ?: Result.success(emptyList())
             }.flowOn(defaultDispatcher)
         }
 

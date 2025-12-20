@@ -5,28 +5,28 @@ import retrofit2.http.Path
 
 interface TMDBService {
     @RequiresAuth
-    @GET("/account/{account_id}/watchlist/movies")
-    fun getWatchListMovies(
+    @GET("account/{account_id}/watchlist/movies")
+    suspend fun getWatchListMovies(
         @Path("account_id") accountId: Int,
-    ): List<TitleDto>
+    ): WatchlistMovieResponse
 
     @RequiresAuth
-    @GET("/discover/movie")
-    fun getDiscoverMovies(): List<TitleDto>
+    @GET("discover/movie")
+    suspend fun getDiscoverMovies(): WatchlistMovieResponse
 
     @RequiresAuth
-    @GET("/discover/tv")
-    fun getDiscoverTvShows(): List<TitleDto>
+    @GET("discover/tv")
+    suspend fun getDiscoverTvShows(): WatchlistMovieResponse
 
     @RequiresAuth
-    @GET("/movie/now_playing")
-    fun getNowPlayingMovies(): List<TitleDto>
+    @GET("movie/now_playing")
+    suspend fun getNowPlayingMovies(): WatchlistMovieResponse
 
     @RequiresAuth
-    @GET("/movie/popular")
-    fun getPopularMovies(): List<TitleDto>
+    @GET("movie/popular")
+    suspend fun getPopularMovies(): WatchlistMovieResponse
 
     @RequiresAuth
-    @GET("/movie/upcoming")
-    fun getUpcomingMovies(): List<TitleDto>
+    @GET("movie/upcoming")
+    suspend fun getUpcomingMovies(): WatchlistMovieResponse
 }
