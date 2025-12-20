@@ -4,6 +4,10 @@ This is a template Android project build with MVVM + Clean Architecture pattern.
 
 🚧 Project is still in construction, more updates to come 🚧
 
+# Screenshot
+
+<img width="357" height="759" alt="Screenshot_20251220_202806" src="https://github.com/user-attachments/assets/b2f9fb36-653e-4101-be90-05c0981c6578" />
+
 # UML graph
 
 Below UML graph demonstrates how the app is layered with an example of retrive movie list flow
