@@ -6,7 +6,7 @@ This is a template Android project build with MVVM + Clean Architecture pattern.
 
 # Screenshot
 
-<img width="1198" height="2531" alt="Screenshot_20251220_202806" src="https://github.com/user-attachments/assets/b2f9fb36-653e-4101-be90-05c0981c6578" />
+<img width="357" height="759" alt="Screenshot_20251220_202806" src="https://github.com/user-attachments/assets/b2f9fb36-653e-4101-be90-05c0981c6578" />
 
 # UML graph
 
