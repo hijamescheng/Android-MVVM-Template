@@ -22,7 +22,7 @@ class HomeViewModel
                 when {
                     result.isSuccess && result.getOrNull() != null -> HomeScreenState.SuccessState(result.getOrNull()!!)
                     result.isFailure -> HomeScreenState.ErrorState
-                    else -> HomeScreenState.EmptyState
+                    else -> HomeScreenState.LoadingState
                 }
             }.stateIn(
                 scope = viewModelScope,

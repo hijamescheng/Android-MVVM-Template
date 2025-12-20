@@ -4,6 +4,7 @@ import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -12,12 +13,17 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.example.mvvm.BuildConfig
@@ -27,8 +33,8 @@ import com.example.mvvm.HomeViewModel.HomeScreenState.ErrorState
 import com.example.mvvm.HomeViewModel.HomeScreenState.LoadingState
 import com.example.mvvm.HomeViewModel.HomeScreenState.SuccessState
 import com.example.mvvm.data.Row
+import com.example.mvvm.ui.theme.Red
 import com.example.mvvm.ui.theme.White
-
 
 @Composable
 fun HomeScreen(
@@ -36,16 +42,80 @@ fun HomeScreen(
     innerPadding: PaddingValues,
 ) {
     when (uiState) {
-        is EmptyState -> {}
-        is ErrorState -> {}
-        is SuccessState -> HomeScreenSuccess(uiState.homeList)
-        is LoadingState -> {}
+        is EmptyState -> EmptyView()
+        is ErrorState -> ErrorView()
+        is SuccessState -> HomeScreenSuccess(uiState.homeList, innerPadding)
+        is LoadingState -> LoadingView()
     }
 }
 
 @Composable
-fun HomeScreenSuccess(rows: List<Row>) {
-    LazyColumn {
+fun LoadingView() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        CircularProgressIndicator(color = Red)
+    }
+}
+
+@Composable
+fun EmptyView() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(text = "No data available", color = White, fontWeight = FontWeight.Bold)
+        Text(
+            text = "Looks like there are no movies to show",
+            color = White,
+        )
+    }
+}
+
+@Composable
+fun ErrorView() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(text = "Uh... Error!", color = White, fontWeight = FontWeight.Bold)
+        Text(
+            text = "Something went wrong while fetching data please try again later.",
+            modifier = Modifier.padding(horizontal = 20.dp),
+            textAlign = TextAlign.Center,
+            color = White,
+        )
+        Button(
+            onClick = {},
+            colors =
+                ButtonDefaults.buttonColors(
+                    containerColor = Red,
+                    contentColor = White,
+                ),
+            modifier = Modifier.padding(top = 20.dp),
+            shape = RoundedCornerShape(0.dp),
+        ) {
+            Text("Try again")
+        }
+    }
+}
+
+@Composable
+fun HomeScreenSuccess(
+    rows: List<Row>,
+    innerPadding: PaddingValues,
+) {
+    LazyColumn(
+        modifier =
+            Modifier.padding(
+                top = innerPadding.calculateTopPadding(),
+                bottom = innerPadding.calculateBottomPadding(),
+            ),
+    ) {
         items(rows.filter { it.titleList.isNotEmpty() }) { row ->
             Row(row)
         }
