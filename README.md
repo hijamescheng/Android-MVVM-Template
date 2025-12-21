@@ -1,6 +1,7 @@
 # Android MVVM + Clean Architecture template
 
-This is a template Android project build with MVVM + Clean Architecture pattern. This project utilises [TMDB API](https://developer.themoviedb.org/reference/getting-started) to fetch movies and TV shows 
+This is a template Android project build with MVVM + Clean Architecture pattern. This project utilises [TMDB API](https://developer.themoviedb.org/reference/getting-started) to fetch movies and TV shows
+
 
 🚧 Project is still in construction, more updates to come 🚧
 
