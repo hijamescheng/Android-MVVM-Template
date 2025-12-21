@@ -46,7 +46,7 @@ class MovieRepository
                     )
                 }.onFailure {
                     // Fail silently
-                    println(it.message)
+                    print("")
                 }
             }
         }

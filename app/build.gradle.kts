@@ -116,6 +116,10 @@ dependencies {
     implementation(libs.roomDB)
     implementation(libs.roomKTX)
     testImplementation(libs.roomTest)
+    testImplementation(libs.mockk)
+    testImplementation(libs.mockk)
+    testImplementation(libs.coroutineTest)
+    testImplementation(libs.turbine)
 
     ksp(libs.roomCompiler)
     annotationProcessor(libs.roomCompiler)

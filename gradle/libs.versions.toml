@@ -16,6 +16,10 @@ room = "2.8.4"
 moshiVersion = "1.15.2"
 ktlint = "14.0.1"
 coil = "3.3.0"
+mockito = "5.21.0"
+mockk = "1.14.7"
+coroutineTest = "1.10.2"
+turbine = "1.2.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -50,6 +54,11 @@ moshiKotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref
 
 coil = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
 coilNetwork = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
+mockito = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
+mockitoKTX = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+coroutineTest = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutineTest" }
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
