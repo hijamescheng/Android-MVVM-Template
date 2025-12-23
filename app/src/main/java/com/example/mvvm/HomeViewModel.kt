@@ -2,8 +2,8 @@ package com.example.mvvm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mvvm.data.MovieRepository
 import com.example.mvvm.data.Row
+import com.example.mvvm.domain.LoadHomePageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -15,13 +15,16 @@ import javax.inject.Inject
 class HomeViewModel
     @Inject
     constructor(
-        val repository: MovieRepository,
+        val loadHomePageUseCase: LoadHomePageUseCase,
     ) : ViewModel() {
         val homeState: StateFlow<HomeScreenState> =
-            repository.observeHomePage().map { result ->
+            loadHomePageUseCase.execute().map { result ->
                 when {
-                    result.isSuccess && result.getOrNull() != null -> HomeScreenState.SuccessState(result.getOrNull()!!)
+                    result.isSuccess && result.getOrNull()
+                        ?.isNotEmpty() == true -> HomeScreenState.SuccessState(result.getOrNull()!!)
+
                     result.isFailure -> HomeScreenState.ErrorState
+                    result.isSuccess && result.getOrNull().isNullOrEmpty() -> HomeScreenState.EmptyState
                     else -> HomeScreenState.LoadingState
                 }
             }.stateIn(
