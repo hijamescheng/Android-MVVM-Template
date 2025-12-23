@@ -27,8 +27,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     containerColor = Black,
                 ) { innerPadding ->
-                    val uistate = viewModel.homeState.collectAsStateWithLifecycle()
-                    HomeScreen(uistate.value, innerPadding)
+                    val uiState = viewModel.homeState.collectAsStateWithLifecycle()
+                    HomeScreen(uiState.value, innerPadding)
                 }
             }
         }
