@@ -25,10 +25,16 @@ jobs:
               run: chmod +x gradlew
 
             - name: Run unit tests
-              run: ./gradlew test
+              run: ./gradlew testDevDebugUnitTest
 
             - name: Run lint
               run: ./gradlew ktlintCheck
 
             - name: Build app
               run: ./gradlew assembleDebug
+
+            - name: Upload APK
+              uses: actions/upload-artifact@v4
+              with:
+                  name: app-debug-apk
+                  path: app/build/outputs/apk/debug/*.apk
