@@ -8,7 +8,7 @@ App adopts offline-first approach, API responses are cached in a local Room DB.
 
 # Screenshot
 
-<img width="357" height="759" alt="Screenshot_20251220_202806" src="https://github.com/user-attachments/assets/b2f9fb36-653e-4101-be90-05c0981c6578" />
+<img width="357" height="759" alt="Sequence diagram" src="https://github.com/user-attachments/assets/47375a91-90e2-4177-bbcb-9c4a6601b351" />
 
 # UML graph
 
