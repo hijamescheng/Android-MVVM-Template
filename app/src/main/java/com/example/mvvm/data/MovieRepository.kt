@@ -27,12 +27,12 @@ class MovieRepository
             )
 
         fun observeHomePage(): Flow<Result<List<Row>>> {
-            refreshHomepageIfNeeded()
+            refreshHomepage()
             return observeCachedHomePage()
         }
 
         // fire and forget -> fetch from remote API and cache result in local storage
-        fun refreshHomepageIfNeeded() {
+        fun refreshHomepage() {
             CoroutineScope(ioDispatcher).launch {
                 runCatching {
                     remoteMovieDataSource.getHomePage()

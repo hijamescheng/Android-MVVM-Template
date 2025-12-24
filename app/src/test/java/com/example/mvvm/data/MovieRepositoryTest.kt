@@ -129,7 +129,7 @@ class MovieRepositoryTest {
             coEvery { roomDBDataSource.upsertScreenResponse(any<ScreenResponseEntity>()) } just Runs
             every { adapter.toJson(any<List<Row>>()) } returns ""
 
-            repository.refreshHomepageIfNeeded()
+            repository.refreshHomepage()
             verify { roomDBDataSource.upsertScreenResponse(any<ScreenResponseEntity>()) }
         }
 
@@ -142,7 +142,7 @@ class MovieRepositoryTest {
             coEvery { roomDBDataSource.upsertScreenResponse(any<ScreenResponseEntity>()) } just Runs
             every { adapter.toJson(any<List<Row>>()) } returns ""
 
-            repository.refreshHomepageIfNeeded()
+            repository.refreshHomepage()
             verify(exactly = 0) { roomDBDataSource.upsertScreenResponse(any<ScreenResponseEntity>()) }
         }
 
