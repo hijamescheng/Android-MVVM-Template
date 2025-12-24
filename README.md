@@ -8,11 +8,11 @@ App adopts offline-first approach, API responses are cached in a local Room DB.
 
 # Screenshot
 
-<img width="357" height="759" alt="Sequence diagram" src="https://github.com/user-attachments/assets/47375a91-90e2-4177-bbcb-9c4a6601b351" />
+<img width="357" height="759" alt="Sequence diagram" src="https://github.com/user-attachments/assets/a740c507-7c40-4c87-b050-1cfe70930988" />
 
 # UML graph
 
-<img width="1880" height="1120" alt="Sequence diagram" src="https://github.com/user-attachments/assets/b5bec0c7-de98-4281-bf12-07e53fc07997" />
+<img width="1880" height="1120" alt="Sequence diagram" src="https://github.com/user-attachments/assets/f2bb115c-11b4-4bd3-a783-e18fb33b581a" />
 
 
 Below UML graph demonstrates how the app is layered with an example of retrive movie list flow
